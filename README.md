@@ -27,7 +27,7 @@ This repository includes 3 parts:
 ### 2. Classification
  * **Classification of images using CCN on Single GPU (SETI_CNN_Tf_SingleGpu.ipynb)**
      * In this Notebook, we will use the famous [SETI Dataset](https://github.com/setiQuest/ML4SETI/) to build a Convolutional Neural Networks capable to perform signals classification. CNN will say, with some associated error, what type of signal is the presented input.
-     * In our case, as we are running this notebook on [IBM PowerAI](http://cocl.us/SETI-NIMBIX-PowerAI), you hvae access to multi GPU, but we use one of the GPUs in this notebook, for the sake of simplicity.
+     * In our case, as we are running this notebook on [IBM PowerAI](http://cocl.us/SETI-NIMBIX-PowerAI), you have access to multi GPU, but we use one of the GPUs in this notebook, for the sake of simplicity.
  * **Optional: Classification of images using CCN on Multi GPU (SETI_CNN_Tf_MultiGpu.ipynb)** 
      * This Notebook, builds a Convolutional Neural Networks, but using multi GPUs. You will use IBM PowerAI with multiple GPU to train the model in parallel manner.
      * You can run this notebook in case you have access to an environment with multiple GPUs.
@@ -36,21 +36,21 @@ This repository includes 3 parts:
      * In this notebook you can load a pre-trained model and predict the signal class.
 
 ### Performance
-Convelutional Neural Network involves a lot of matrix and vector multiplications that can parallelized, so GPUs can overperform, because GPUs were designed to handle these kind of matrix operations in parallel!
+Convolutional Neural Network involves a lot of matrix and vector multiplications that can parallelized, so GPUs can overperform, because GPUs were designed to handle these kind of matrix operations in parallel!
 
 ### Why GPU overperforms?
 A single core CPU takes a matrix operation in serial, one element at a time. But, a single GPU could have hundreds or thousands of cores, while a CPU typically has no more than a few cores.
 
 
 ### How to use GPU with TensorFlow?
-It is important to notice that if both CPU and GPU are available on the machine that you are running the noebook, and if a TensorFlow operation has both CPU and GPU implementations, the GPU devices will be given priority when the operation is assigned to a device. 
+It is important to notice that if both CPU and GPU are available on the machine that you are running the notebook, and if a TensorFlow operation has both CPU and GPU implementations, the GPU devices will be given priority when the operation is assigned to a device. 
 
 
 
 ### Benchmark:
 - SETI_single_gpu_train.py achieves ~72% accuracy after 3k epochs of data (75K steps).
 - Speed: With batch_size 128.  
-- __Notice:__ The model is not optimized to reach to its highest accuracy, you can achive better results tuning the parameters.
+- __Notice:__ The model is not optimized to reach to its highest accuracy, you can achieve better results tuning the parameters.
 
 <table border="1" style="box-sizing: border-box; border-spacing: 30px; background-color: transparent; color: #333333; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px;">
 <tbody style="box-sizing: border-box;">
@@ -86,7 +86,7 @@ It is important to notice that if both CPU and GPU are available on the machine 
 
 - SETI_multi_gpu_train.py achieves ~72% accuracy after 75K steps.
 - Speed: With batch_size 128.  
-- __Notice:__ The model is not optimized to reach to highest accuracy, and you can achive better results tuning the parameters.
+- __Notice:__ The model is not optimized to reach to highest accuracy, and you can achieve better results tuning the parameters.
 
 <table border="1" style="box-sizing: border-box; border-spacing: 30px; background-color: transparent; color: #333333; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px;">
 <tbody style="box-sizing: border-box;">
