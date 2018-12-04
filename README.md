@@ -1,6 +1,4 @@
-<a href="https://www.cognitiveclass.ai"><img src = "https://ibm.box.com/shared/static/qo20b88v1hbjztubt06609ovs85q8fau.png" align = left height="50"></a>
-<br>
-<br>
+![ibm_ad](https://ibm.box.com/shared/static/qo20b88v1hbjztubt06609ovs85q8fau.png)
 
 # Search for extra terrestrial intelligence (SETI) with Tensorflow on PowerAI
 
@@ -74,7 +72,7 @@ IBM has partnered with Nimbix to provide cognitive developers a trial account th
 
   ```commandline
   mkdir /data/patterns
-  ln -s /data/patterns /usr/local/samples/patterns
+  ln -s /data/patterns /usr/local/samples/
   ```
 
 * Use `git clone` to download the example notebook, dataset, and retraining library into `/data/patterns`:
@@ -90,39 +88,14 @@ IBM has partnered with Nimbix to provide cognitive developers a trial account th
 
   ![powerai-notebook-open](doc/source/images/powerai-notebook-open.png)
 
-<!-- TODO: the notebook list to open
-, and then `Classifying-House-And-Pool-Images.ipynb` to open the notebook.
--->
-
-
 * If your container is paused (after 4 hours) and you resume it, your data will still be under `/data`. Recreate the symbolic link for it to show up in the Jupyter files tree.
 
   ```commandline
-  ln -s /data/patterns /usr/local/samples/patterns
+  ln -s /data/patterns /usr/local/samples/
   ```
 ## 3. Run the notebooks
 
-## Notebooks:
-This repository includes 3 parts:
-### 1. Preparing dataset
-  * **Converting images to binary files using Numpy (SETI_img_to-binary.ipynb)**
-      <!-- TODO: has errors in the output -->
-      * In this notebook we read the Basic 4 dataset and convert signals into a binary file. Also, we split data into train/test datasets. 
-  * **Optional: Converting images to binary files using Spark (SETI_img_to_binary_spark.ipynb)**  
-      <!-- TODO: requires object storage setup -->
-      * In this notebook we read the Basic 4 dataset through Spark, and convert signals into a binary file. It is an optional notebook and you don't have to run it if you have already converted the images to binary files.
-### 2. Classification
- * **Classification of images using CCN on Single GPU (SETI_CNN_Tf_SingleGpu.ipynb)**
-     * In this Notebook, we will use the famous [SETI Dataset](https://github.com/setiQuest/ML4SETI/) to build a Convolutional Neural Networks capable to perform signals classification. CNN will say, with some associated error, what type of signal is the presented input.
-     * In our case, as we are running this notebook on [IBM PowerAI](http://cocl.us/SETI-NIMBIX-PowerAI), you hvae access to multi GPU, but we use one of the GPUs in this notebook, for the sake of simplicity.
- * **Optional: Classification of images using CCN on Multi GPU (SETI_CNN_Tf_MultiGpu.ipynb)** 
-     * This Notebook, builds a Convolutional Neural Networks, but using multi GPUs. You will use IBM PowerAI with multiple GPU to train the model in parallel manner.
-     * You can run this notebook in case you have access to an environment with multiple GPUs.
-### 3. Prediction
-* **Use the trained model for prediciton (SETI_prediction.ipynb)**
-     * In this notebook you can load a pre-trained model and predict the signal class.
-
-### Running notebooks
+### Introduction to running notebooks
 
 When a notebook is executed, what is actually happening is that each code cell in
 the notebook is executed, in order, from top to bottom.
@@ -144,8 +117,35 @@ There are several ways to execute the code cells in your notebook:
     start executing from the first cell under the currently selected cell, and then
     continue executing all cells that follow.
 
+### The SETI notebooks
+
+To complete the code pattern, run the training and prediction notebooks in this order:
+
+1. seti_cnn_tf_training.ipynb
+2. seti_predition.ipynb
+
+#### Preparing the dataset
+
+First, we read the Basic 4 dataset, converted signals into images, and saved them in MNIST format. Now our signal classification problem has become an image classification problem. We split the MNIST data into train and test datasets and stored the results.
+
+The training and prediction notebooks use our stored results, so you can skip the data preparation step.
+You can review an example notebook from the data preparation step [here](examples/seti_signal_to_mnist_format.ipynb).
+
+#### Training the model
+
+In the `seti_cnn_tf_training.ipynb` notebook, we use the famous SETI Dataset to build a convolutional neural network (CNN) able to perform signal classification. The CNN will determine, with some associated error, what type of signal is presented.
+
+Run this notebook. The PowerAI free trial does not include GPUs, so training is slower. We'll use a lower number of epochs to finish faster, but this will hurt accuracy.
+
+To create a production model for a problem of this size, you would want to run a higher number of epochs using PowerAI with one or more GPUs.
+
+#### Prediction
+
+In the `seti_prediction.ipynb` notebook, we will use the trained model to predict the signal class. Run this notebook after the training notebook has completed.
+
 ![](doc/source/images/powerai-notebook-run.png)
 
+## 4. Analyze the results
 
 ### Performance
 Convelutional Neural Network involves a lot of matrix and vector multiplications that can parallelized, so GPUs can overperform, because GPUs were designed to handle these kind of matrix operations in parallel!
@@ -237,26 +237,9 @@ It is important to notice that if both CPU and GPU are available on the machine 
 </tbody>
 </table>
 
-## 4. Analyze the results
-
-When you run the "Main" code cell you can watch the training as the accuracy
-quickly improves. At the end, the final test accuracy is shown. We usually see
-somewhere around 85% accuracy with these images.
-
-![](doc/source/images/training-results.png)
-
-We captured the model before and after the training. Look at our example
-images at the bottom of the notebook and see our before and after results.
-
-![](doc/source/images/before-and-after.png)
-
-The results should go from no recognition ability at all to a pretty good
-success rate. You might find it interesting to try different images and see
-if you can identify why it has more difficulty classifying some images.
-
 ## 5. Save and share
 
-### How to save your work:
+### How to save your work
 
 Because this notebook is running temporarily on a Nimbix
 Cloud server, use the following options to save your work:
@@ -270,9 +253,3 @@ Under the `File` menu, there are options to:
 ## 6. End your trial
 
 When you are done with your work, please cancel your subscription by visiting the `Manage` link on the **My Products and Services** page.
-
-<!-- TODO:
-# Sample Output
-
-You can see a copy of the notebook including output [here](examples/Classifying-House-And-Pool-Images.ipynb)
- -->
