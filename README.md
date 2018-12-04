@@ -148,21 +148,21 @@ In the `seti_prediction.ipynb` notebook, we will use the trained model to predic
 ## 4. Analyze the results
 
 ### Performance
-Convelutional Neural Network involves a lot of matrix and vector multiplications that can parallelized, so GPUs can overperform, because GPUs were designed to handle these kind of matrix operations in parallel!
+Convolutional Neural Network involves a lot of matrix and vector multiplications that can parallelized, so GPUs can overperform, because GPUs were designed to handle these kind of matrix operations in parallel!
 
 ### Why GPU overperforms?
 A single core CPU takes a matrix operation in serial, one element at a time. But, a single GPU could have hundreds or thousands of cores, while a CPU typically has no more than a few cores.
 
 
 ### How to use GPU with TensorFlow?
-It is important to notice that if both CPU and GPU are available on the machine that you are running the noebook, and if a TensorFlow operation has both CPU and GPU implementations, the GPU devices will be given priority when the operation is assigned to a device. 
+It is important to notice that if both CPU and GPU are available on the machine that you are running the notebook, and if a TensorFlow operation has both CPU and GPU implementations, the GPU devices will be given priority when the operation is assigned to a device. 
 
 
 
 ### Benchmark:
 - SETI_single_gpu_train.py achieves ~72% accuracy after 3k epochs of data (75K steps).
 - Speed: With batch_size 128.  
-- __Notice:__ The model is not optimized to reach to its highest accuracy, you can achive better results tuning the parameters.
+- __Notice:__ The model is not optimized to reach to its highest accuracy, you can achieve better results tuning the parameters.
 
 <table border="1" style="box-sizing: border-box; border-spacing: 30px; background-color: transparent; color: #333333; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px;">
 <tbody style="box-sizing: border-box;">
@@ -198,7 +198,7 @@ It is important to notice that if both CPU and GPU are available on the machine 
 
 - SETI_multi_gpu_train.py achieves ~72% accuracy after 75K steps.
 - Speed: With batch_size 128.  
-- __Notice:__ The model is not optimized to reach to highest accuracy, and you can achive better results tuning the parameters.
+- __Notice:__ The model is not optimized to reach to highest accuracy, and you can achieve better results tuning the parameters.
 
 <table border="1" style="box-sizing: border-box; border-spacing: 30px; background-color: transparent; color: #333333; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px;">
 <tbody style="box-sizing: border-box;">
