@@ -1,4 +1,6 @@
-![ibm_ad](https://ibm.box.com/shared/static/qo20b88v1hbjztubt06609ovs85q8fau.png)
+<a href="https://www.cognitiveclass.ai"><img src="https://ibm.box.com/shared/static/qo20b88v1hbjztubt06609ovs85q8fau.png" align=left height="50"></a>
+<br/>
+<br/>
 
 # Search for extra terrestrial intelligence (SETI) with Tensorflow on PowerAI
 
@@ -16,24 +18,16 @@ When you’ve completed this pattern, you will understand how to:
 
 This pattern will assist application developers who need to efficiently build powerful deep learning applications and use GPUs to train the model quickly.
 
-<!-- TODO:
-![flow](doc/source/images/architecture.png)
+![architecture](doc/source/images/architecture.png)
 
 ## Flow
 
-1. The developer loads the provided notebook, which is run on a PowerAI system.
-2. A provided example dataset demonstrates a use case of recognizing images of houses with pools vs. houses without pools.
-3. The notebook uses the TensorFlow Inception model and retraining example to leverage the existing model and build a custom classifier.
-4. The notebook compares results using the original model and the new model.
- -->
+1. The developer loads the provided notebooks to run on a PowerAI system on Nimbix Cloud.
+2. The SETI dataset demonstrates a use case of recognizing different classes of radio signals from outer space.
+3. The training notebook uses TensorFlow with convolutional neural networks to train a model and build a classifier.
+4. The prediction notebook demonstrates the accuracy of the classifier.
 
-<!-- TODO:
-# Watch the Video
-
-[![](http://img.youtube.com/vi/S3jdmKrERrE/0.jpg)](https://www.youtube.com/watch?v=S3jdmKrERrE)
- -->
-
-# Steps
+## Steps
 
 Follow these steps to setup and run this code pattern. The steps are
 described in detail below.
@@ -45,7 +39,7 @@ described in detail below.
 1. [Save and share](#5-save-and-share)
 1. [End your trial](#6-end-your-trial)
 
-## 1. Get 24-hours of free access to the PowerAI platform
+### 1. Get 24-hours of free access to the PowerAI platform
 
 IBM has partnered with Nimbix to provide cognitive developers a trial account that provides 24-hours of free processing time on the PowerAI platform. Follow these steps to register for access to Nimbix to try the PowerAI code patterns and explore the platform.
 
@@ -62,7 +56,7 @@ IBM has partnered with Nimbix to provide cognitive developers a trial account th
 
   ![welcome](https://raw.githubusercontent.com/IBM/pattern-utils/master/powerai/welcomepage.png)
 
-## 2. Access and start the Jupyter notebooks
+### 2. Access and start the Jupyter notebooks
 
 * Get a new terminal window by clicking on the ```New``` pull-down and selecting ``Terminal``.
 
@@ -93,9 +87,10 @@ IBM has partnered with Nimbix to provide cognitive developers a trial account th
   ```commandline
   ln -s /data/patterns /usr/local/samples/
   ```
-## 3. Run the notebooks
 
-### Introduction to running notebooks
+### 3. Run the notebooks
+
+#### Introduction to running notebooks
 
 When a notebook is executed, what is actually happening is that each code cell in
 the notebook is executed, in order, from top to bottom.
@@ -117,52 +112,68 @@ There are several ways to execute the code cells in your notebook:
     start executing from the first cell under the currently selected cell, and then
     continue executing all cells that follow.
 
-### The SETI notebooks
+#### The SETI notebooks
 
 To complete the code pattern, run the training and prediction notebooks in this order:
 
 1. seti_cnn_tf_training.ipynb
 2. seti_predition.ipynb
 
-#### Preparing the dataset
+##### Preparing the dataset
 
 First, we read the Basic 4 dataset, converted signals into images, and saved them in MNIST format. Now our signal classification problem has become an image classification problem. We split the MNIST data into train and test datasets and stored the results.
+
+![signal_as_image.png](doc/source/images/signal_as_image.png)
 
 The training and prediction notebooks use our stored results, so you can skip the data preparation step.
 You can review an example notebook from the data preparation step [here](examples/seti_signal_to_mnist_format.ipynb).
 
-#### Training the model
+##### Training the model
 
 In the `seti_cnn_tf_training.ipynb` notebook, we use the famous SETI Dataset to build a convolutional neural network (CNN) able to perform signal classification. The CNN will determine, with some associated error, what type of signal is presented.
 
+The notebook combines code with documentation to describe the steps and the training of the CNN model.
+
 Run this notebook. The PowerAI free trial does not include GPUs, so training is slower. We'll use a lower number of epochs to finish faster, but this will hurt accuracy.
+
+![epochs.png](doc/source/images/epochs.png)
+![loss_values.png](doc/source/images/loss_values.png)
 
 To create a production model for a problem of this size, you would want to run a higher number of epochs using PowerAI with one or more GPUs.
 
-#### Prediction
+##### Prediction
 
 In the `seti_prediction.ipynb` notebook, we will use the trained model to predict the signal class. Run this notebook after the training notebook has completed.
 
-![](doc/source/images/powerai-notebook-run.png)
+![evaluation.png](doc/source/images/evaluation.png)
 
-## 4. Analyze the results
+> Notice that the accuracy started at 25% (1 in 4) and improved considerably. Accuracy will continue to improve with more training time (more epochs). See below for some benchmarks that we ran with GPUs.
 
-### Performance
-Convolutional Neural Network involves a lot of matrix and vector multiplications that can parallelized, so GPUs can overperform, because GPUs were designed to handle these kind of matrix operations in parallel!
+### 4. Analyze the results
 
-### Why GPU overperforms?
-A single core CPU takes a matrix operation in serial, one element at a time. But, a single GPU could have hundreds or thousands of cores, while a CPU typically has no more than a few cores.
+#### Performance
 
+Convolutional neural networks involve a lot of matrix and vector multiplications that can be parallelized. GPUs can improve performance, because GPUs were designed to handle these operations in parallel!
 
-### How to use GPU with TensorFlow?
-It is important to notice that if both CPU and GPU are available on the machine that you are running the notebook, and if a TensorFlow operation has both CPU and GPU implementations, the GPU devices will be given priority when the operation is assigned to a device. 
+#### GPU vs. CPU
 
+A single core CPU takes a matrix operation in serial, one element at a time, but a single GPU could have hundreds or thousands of cores, while a CPU typically has no more than a few cores.
 
+#### How to use GPU with TensorFlow?
 
-### Benchmark:
-- SETI_single_gpu_train.py achieves ~72% accuracy after 3k epochs of data (75K steps).
-- Speed: With batch_size 128.  
-- __Notice:__ The model is not optimized to reach to its highest accuracy, you can achieve better results tuning the parameters.
+It is important to notice that if both CPU and GPU are available on the machine that you are running the notebook, and if a TensorFlow operation has both CPU and GPU implementations, the GPU devices will be given priority when the operation is assigned to a device.
+
+In our case, as we are running this notebook on IBM PowerAI, you may have access to multiple GPUs, but let's use one of the GPUs in this notebook, for the sake of simplicity.
+
+> Note: If you are running the free trial, you would expect to have zero GPUs. This notebook will work, but the training will be slow.
+
+#### Benchmarks
+
+The accuracy will start at 25% (1 in 4 classes) and gradually improves with training. With the free trial service on Nimbix Cloud, we're seeing accuracy over 50% after 75 minutes with 50 epochs.
+
+The performance improves with GPUs -- allowing us to improve accuracy considerably. We've captured some benchmarks after more epochs running with single and multiple GPUs.
+
+##### PowerAI with Single GPU
 
 <table border="1" style="box-sizing: border-box; border-spacing: 30px; background-color: transparent; color: #333333; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px;">
 <tbody style="box-sizing: border-box;">
@@ -190,15 +201,10 @@ It is important to notice that if both CPU and GPU are available on the machine 
 <td style="box-sizing: border-box; padding: 3px; text-align:center;">~0.035 </td>
 <td style="box-sizing: border-box; padding: 3px; text-align:left;">~72% at 75K steps  (1 hour)</td>
 </tr>
-
-
 </tbody>
 </table>
 
-
-- SETI_multi_gpu_train.py achieves ~72% accuracy after 75K steps.
-- Speed: With batch_size 128.  
-- __Notice:__ The model is not optimized to reach to highest accuracy, and you can achieve better results tuning the parameters.
+##### PowerAI with Multiple GPUs
 
 <table border="1" style="box-sizing: border-box; border-spacing: 30px; background-color: transparent; color: #333333; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px;">
 <tbody style="box-sizing: border-box;">
@@ -237,9 +243,9 @@ It is important to notice that if both CPU and GPU are available on the machine 
 </tbody>
 </table>
 
-## 5. Save and share
+### 5. Save and share
 
-### How to save your work
+#### How to save your work
 
 Because this notebook is running temporarily on a Nimbix
 Cloud server, use the following options to save your work:
@@ -250,6 +256,12 @@ Under the `File` menu, there are options to:
 * `Print Preview` will allow you to print the current state of the
   notebook.
 
-## 6. End your trial
+### 6. End your trial
 
 When you are done with your work, please cancel your subscription by visiting the `Manage` link on the **My Products and Services** page.
+
+## License
+
+This code pattern is licensed under the Apache License, Version 2. Separate third-party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1](https://developercertificate.org/) and the [Apache License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
+
+[Apache License FAQ](https://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
